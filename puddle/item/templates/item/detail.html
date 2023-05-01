@@ -1,0 +1,49 @@
+{%extends 'core/base.html'%}
+
+{%block title%} {{item.title}} {%endblock%}
+
+{%block content%} 
+    <div class="grid grid-cols-5 gap-6">
+        <div class="col-span-2 ">
+            <img src="{{item.image.url}}" class="rounded-b-xl">
+        </div>
+        
+        <div class="col-span-3 p-6  bg-gray-175 rounded-b-xl space-y-2.5">
+            <h1 class="mb-6 text 3xl font-bold">{{item.name}}</h1>
+            <p class="text-gray-500"><strong>Цена: </strong>{{item.price}}</p>
+            <p class="text-gray-500"><strong>Продавец: </strong>{{item.created_by.username}}</p>
+    
+            {%if item.description%}
+                <p class="text-black-400">
+                    <strong class="text-black-400">Описание: </strong>{{item.description}}
+                </p>
+            {%endif%}
+    
+            <a href="#" class="inline-block items-center px-4 py-2 bg-green-200 hover:bg-gray-300 text-gray-800 text-sm font-bold rounded-md ">Контакты продавца</a>
+        </div>
+    
+    </div>
+
+    
+    <div class="mt-6 px-6 py-12 bg-gray-175 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center">Схожие предметы</h2>
+        
+        
+        <!--gap-x-10-->
+        <div class="grid  gap-y-4 grid-cols-3 gap-3 ">
+            {% for item in related_items %}
+                <div>
+                    <a href="{% url 'item:detail' item.id %}">
+                        <div>
+                            <img src="{{item.image.url}}" class="rounded-b-xl">
+                        </div>
+
+                        <div class="p-6 bg-white rounded-b-xl">
+                            <h2 class="text-2xl">{{item.name}}</h2>
+                            <p class="text-gray-800">Цена: {{item.price}}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+    </div>
+{%endblock%}
